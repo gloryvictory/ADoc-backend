@@ -50,3 +50,15 @@ class ADOC_M(BaseClass):
     year_str: str = ormar.String(index=True, max_length=255)
     territory_name: str = ormar.Text(index=True)
     # file_path_fts: str = ormar_postgres_full_text.TSVector()
+
+
+class ADOC_HISTORY_M(ormar.Model):
+    class Meta(MainMeta):
+        tablename = "adoc_history"
+        pass
+
+    id: int = ormar.Integer(primary_key=True)
+    file_in: str = ormar.String(max_length=255)
+    file_out: str = ormar.String(max_length=255)
+    file_out_path: str = ormar.Text()
+    lastupdate: datetime = ormar.DateTime(default=datetime.now)

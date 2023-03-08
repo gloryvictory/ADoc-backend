@@ -1,24 +1,33 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, UploadFile  # , Depends, HTTPException
 from typing import List
 
 from src.adoc.schemas import ADOC_S
-from src.adoc.services import adoc_get_all_count
+from src.adoc.services import adoc_get_all_count, adoc_upload_file
 
-router_files = APIRouter(
+router_adoc = APIRouter(
     # prefix="/adoc",
     tags=["Документы"]
 )
 
 
-@router_files.get(path='/count',
-                  status_code=200,
-                  name='Получить количество Документов',
-                  tags=['Документы'],
-                  description='Получает количество Документов')
+@router_adoc.get(path='/count',
+                 status_code=200,
+                 name='Получить количество Документов',
+                 tags=['Документы'],
+                 description='Получает количество Документов')
 async def get_count():
     content = await adoc_get_all_count()
     return content
 
+
+@router_adoc.post(path="/upload/",
+                 status_code=200,
+                 name='Загрузить Excel файл',
+                 tags=['Документы'],
+                 description='Загрузить Excel файл')
+async def upload_file(file: UploadFile):
+    content = await adoc_upload_file(file)
+    return content
 
 # response_model = List[FILES_S],
 # @router_files.get(path="/root/{root_folder}",

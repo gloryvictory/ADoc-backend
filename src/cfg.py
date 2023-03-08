@@ -21,6 +21,7 @@ DB_DSN = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME
 DATETIME_CURRENT = str(strftime("%Y-%m-%d-%H-%M-%S"))
 
 FOLDER_OUT = 'log'
+FOLDER_UPLOAD = 'upload'
 FILE_LOG_NAME = 'adoc'
 FILE_LOG = DATETIME_CURRENT + '_' + FILE_LOG_NAME + '.log'
 FILE_LOG_FORMAT = '%(asctime)s %(levelname)s %(message)s'

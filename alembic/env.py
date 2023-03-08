@@ -6,7 +6,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from src.adoc.models import ADOC_M
+from src.adoc.models import ADOC_M, ADOC_HISTORY_M, BaseClass
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -25,7 +25,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 
-target_metadata = [ADOC_M.Meta.metadata]
+target_metadata = [BaseClass.Meta.metadata]
 
 
 # other values from the config, defined by the needs of env.py,

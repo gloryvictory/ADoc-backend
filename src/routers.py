@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from src.adoc.router import router_files
+from src.adoc.router import router_adoc
 
 api_router = APIRouter(prefix='/api/v1')
 
@@ -11,4 +11,4 @@ def ping():
     return {"msg": "pong!"}
 
 
-api_router.include_router(router_files, prefix="/adoc", tags=["Документы"])  #
+api_router.include_router(router_adoc, prefix="/adoc", tags=["Документы"])  #

@@ -1,5 +1,9 @@
+from fastapi import UploadFile, File
+import os
 from src import cfg
-from src.adoc.models import ADOC_M
+from src.adoc.models import ADOC_M, ADOC_HISTORY_M
+
+
 # import asyncpg
 
 
@@ -16,6 +20,41 @@ async def adoc_get_all_count():
         content = {"msg": f"reload fail. can't read count from table {ADOC_M.Meta.tablename}", "err": str(e)}
         print(str_err)
         # log.info(str_err)
+    return content
+
+
+async def adoc_upload_file(file: UploadFile = File(...)):
+    content = {"msg": f"Unknown error"}
+    try:
+
+        if not os.path.isdir(cfg.FOLDER_UPLOAD):
+            os.mkdir(cfg.FOLDER_UPLOAD)
+        file_in = file.filename
+        file_out = file.filename.replace(" ", "-")
+
+        file_name = os.path.join(os.getcwd(), cfg.FOLDER_UPLOAD, file_out)
+
+        if os.path.exists(file_name):
+            os.remove(file_name)
+            print(f"{file_name} - deleted !")
+
+        contents = file.file.read()
+        with open(file_name, 'wb') as f:
+            f.write(contents)
+
+        adoc_hist = ADOC_HISTORY_M(file_in=file_in, file_out=file_out, file_out_path=file_name)
+        await adoc_hist.upsert()
+
+        all_count = 1
+        content = {"msg": "Success", "count": all_count, "filename": file.filename}
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"Error. There was an error uploading the file", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    finally:
+        file.file.close()
     return content
 
 #

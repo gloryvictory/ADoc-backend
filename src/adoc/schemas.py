@@ -29,3 +29,13 @@ class ADOC_S(BaseModel):
         orm_mode = True
 
 
+class ADOC_HISTORY_S(BaseModel):
+    id: int
+    file_in: str
+    file_out: str
+    file_out_path: str
+    lastupdate: datetime
+
+
+    class Config:
+        orm_mode = True
