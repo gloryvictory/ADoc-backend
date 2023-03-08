@@ -5,11 +5,11 @@
 # from sqlalchemy.orm import sessionmaker
 
 # alembic init alembic
+# alembic revision --autogenerate -m "Commit message"
 # alembic revision -m "init"
 # alembic upgrade head
 
 from src import cfg
-
 import databases
 import sqlalchemy
 

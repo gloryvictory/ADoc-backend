@@ -21,9 +21,8 @@ class BaseClass(ormar.Model):
         # tablename = "Fields"
         pass
 
-    id: uuid.UUID = ormar.UUID(default=uuid.uuid4, primary_key=True, uuid_format='string')
+    id: uuid.UUID = ormar.UUID(default=uuid.uuid4, primary_key=True)
     lastupdate: datetime = ormar.DateTime(default=datetime.now)
-
 
 
 class ADOC_M(BaseClass):
@@ -31,7 +30,7 @@ class ADOC_M(BaseClass):
         tablename = "adoc"
         pass
 
-    id: uuid.UUID = ormar.UUID(default=uuid.uuid4, primary_key=True, uuid_format='string')
+    # id: uuid.UUID = ormar.UUID(default=uuid.uuid4, primary_key=True, uuid_format='string')
     folder_root: str = ormar.Text(index=True, unique=True, null=False)
     folder_link: str = ormar.Text(index=True, unique=True, null=False)
     folder_short: str = ormar.Text(index=True, unique=True, null=False)
@@ -51,4 +50,3 @@ class ADOC_M(BaseClass):
     year_str: str = ormar.String(index=True, max_length=255)
     territory_name: str = ormar.Text(index=True)
     # file_path_fts: str = ormar_postgres_full_text.TSVector()
-
