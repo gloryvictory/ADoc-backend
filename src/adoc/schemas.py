@@ -23,6 +23,7 @@ class ADOC_S(BaseModel):
     author_name: str
     year_str: str
     territory_name: str
+    comments: str
     lastupdate: datetime
 
     class Config:

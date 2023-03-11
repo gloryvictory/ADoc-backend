@@ -31,10 +31,10 @@ class ADOC_M(BaseClass):
         pass
 
     # id: uuid.UUID = ormar.UUID(default=uuid.uuid4, primary_key=True, uuid_format='string')
-    folder_root: str = ormar.Text(index=True, unique=True, null=False)
-    folder_link: str = ormar.Text(index=True, unique=True, null=False)
-    folder_short: str = ormar.Text(index=True, unique=True, null=False)
-    folder_name: str = ormar.Text(index=True, unique=True, null=False)
+    folder_root: str = ormar.Text(index=True)
+    folder_link: str = ormar.Text(index=True)
+    folder_short: str = ormar.Text(index=True)
+    folder_name: str = ormar.Text(index=True)
     rgf: str = ormar.String(index=True, max_length=255)
     tgf_hmao: str = ormar.String(index=True, max_length=255)
     tgf_ynao: str = ormar.String(index=True, max_length=255)
@@ -48,7 +48,9 @@ class ADOC_M(BaseClass):
     report_name: str = ormar.Text()
     author_name: str = ormar.Text(index=True)
     year_str: str = ormar.String(index=True, max_length=255)
+    year_int: str = ormar.Integer()
     territory_name: str = ormar.Text(index=True)
+    comments: str = ormar.Text(index=True)
     # file_path_fts: str = ormar_postgres_full_text.TSVector()
 
 

@@ -131,3 +131,4 @@ dmypy.json
 /.env_prod
 /src/log/
 /src/data/
+/src/upload/
