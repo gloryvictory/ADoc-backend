@@ -21,7 +21,8 @@ class BaseClass(ormar.Model):
         # tablename = "Fields"
         pass
 
-    id: uuid.UUID = ormar.UUID(default=uuid.uuid4, primary_key=True)
+    # id: uuid.UUID = ormar.UUID(default=uuid.uuid4, primary_key=True)
+    id: int = ormar.Integer(primary_key=True)
     lastupdate: datetime = ormar.DateTime(default=datetime.now)
 
 
@@ -48,19 +49,29 @@ class ADOC_M(BaseClass):
     report_name: str = ormar.Text()
     author_name: str = ormar.Text(index=True)
     year_str: str = ormar.String(index=True, max_length=255)
-    year_int: str = ormar.Integer()
+    year_int: str = ormar.Integer(index=True)
     territory_name: str = ormar.Text(index=True)
     comments: str = ormar.Text(index=True)
     # file_path_fts: str = ormar_postgres_full_text.TSVector()
 
 
-class ADOC_HISTORY_M(ormar.Model):
+class ADOC_HISTORY_M(BaseClass):
     class Meta(MainMeta):
         tablename = "adoc_history"
         pass
 
-    id: int = ormar.Integer(primary_key=True)
     file_in: str = ormar.String(max_length=255)
     file_out: str = ormar.String(max_length=255)
     file_out_path: str = ormar.Text()
-    lastupdate: datetime = ormar.DateTime(default=datetime.now)
+    # id: int = ormar.Integer(primary_key=True)
+    # lastupdate: datetime = ormar.DateTime(default=datetime.now)
+
+
+class AUTHOR_M(BaseClass):
+    class Meta(MainMeta):
+        tablename = "author"
+        pass
+
+    author_name: str = ormar.String(index=True, max_length=255)
+    # id: int = ormar.Integer(primary_key=True)
+    # lastupdate: datetime = ormar.DateTime(default=datetime.now)

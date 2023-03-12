@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class ADOC_S(BaseModel):
-    id: int
+    id: str
     folder_root: str
     folder_link: str
     folder_short: str
@@ -37,6 +37,14 @@ class ADOC_HISTORY_S(BaseModel):
     file_out_path: str
     lastupdate: datetime
 
+    class Config:
+        orm_mode = True
+
+
+class AUTHOR_S(BaseModel):
+    id: int
+    author_name: str
+    lastupdate: datetime
 
     class Config:
         orm_mode = True
