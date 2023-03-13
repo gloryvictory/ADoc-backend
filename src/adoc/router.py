@@ -1,8 +1,7 @@
 from fastapi import APIRouter, UploadFile  # , Depends, HTTPException
-from typing import List
+# from typing import List
 
-from src.adoc.schemas import ADOC_S
-from src.adoc.services import adoc_get_all_count, adoc_upload_file
+from src.adoc.services import adoc_get_all_count, adoc_upload_file, adoc_get_all
 
 router_adoc = APIRouter(
     # prefix="/adoc",
@@ -20,6 +19,15 @@ async def get_count():
     return content
 
 
+@router_adoc.get(path='/',
+                 status_code=200,
+                 name='Получить Документы',
+                 tags=['Документы'],
+                 description='Получает Документы')
+async def get_all():
+    content = await adoc_get_all()
+    return content
+
 @router_adoc.post(path="/upload/",
                  status_code=200,
                  name='Загрузить Excel файл',
@@ -28,6 +36,10 @@ async def get_count():
 async def upload_file(file: UploadFile):
     content = await adoc_upload_file(file)
     return content
+
+
+
+
 
 # response_model = List[FILES_S],
 # @router_files.get(path="/root/{root_folder}",

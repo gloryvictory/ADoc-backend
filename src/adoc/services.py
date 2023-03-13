@@ -1,7 +1,7 @@
 from fastapi import UploadFile, File
 import os
 from src import cfg
-from src.adoc.models import ADOC_M, ADOC_HISTORY_M, AUTHOR_M
+from src.models import ADOC_M, ADOC_HISTORY_M, AUTHOR_M
 import openpyxl
 import re
 
@@ -207,9 +207,8 @@ async def adoc_excel_file_read(file_in: str):
         authors_tmp2 = sorted(set(authors2))
         for author in authors_tmp2:
             if len(author) > 2:
-                await AUTHOR_M(author_name = author).save()
+                await AUTHOR_M(author_name=author).save()
                 # authors.append(author)
-
 
     except Exception as e:
         str_err = "Exception occurred " + str(e)
@@ -302,11 +301,9 @@ def str_clean(str_in: str):
                   .lstrip() \
                   .rstrip() \
                   .strip() + ','
-
     # .replace(". и", ".") \
     # if str_tmp.startswith(" "):
     #     str_tmp = str_tmp.replace(" ", "")
-
     if str_tmp.endswith(" "):
         str_tmp = strip_last(str_tmp)
 
@@ -316,7 +313,27 @@ def str_clean(str_in: str):
             str_tmp = str_tmp.strip()
     return str_tmp
 
-#
+
+async def adoc_get_all():
+    content = {"msg": f"Unknown error"}
+    try:
+        all_ = await ADOC_M.objects.all()
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {ADOC_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
+
 # async def files_get_by_root_folder(root_folder: str):
 #     content = {"msg": f"Unknown error"}
 #     # log = set_logger(settings.WELL_FILE_LOG)
