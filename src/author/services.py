@@ -44,4 +44,3 @@ async def author_get_all():
         print(str_err)
         # log.info(str_err)
     return content
-

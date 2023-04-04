@@ -333,6 +333,126 @@ async def adoc_get_all():
     return content
 
 
+async def adoc_get_all_by_author(author):
+    content = {"msg": f"Unknown error"}
+    try:
+        all_ = await ADOC_M.objects.filter(ADOC_M.author_name.icontains(author)).all()
+        # books = await Book.objects.filter(Book.author.name.icontains("tolkien")).all()
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {AUTHOR_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
+async def adoc_get_all_by_report(report):
+    content = {"msg": f"Unknown error"}
+    try:
+        all_ = await ADOC_M.objects.filter(ADOC_M.report_name.icontains(report)).all()
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {AUTHOR_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
+async def adoc_get_all_by_year(year):
+    content = {"msg": f"Unknown error"}
+    try:
+        all_ = await ADOC_M.objects.all(ADOC_M.year_int == year)
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {AUTHOR_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
+async def adoc_get_all_by_yeargte(year):
+    content = {"msg": f"Unknown error"}
+    try:
+        # year_int__gte = 0, year_int__gte = year
+        all_ = await ADOC_M.objects.filter(
+            (ADOC_M.year_int > 0) & (ADOC_M.year_int >= year)
+        ).all()
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {AUTHOR_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
+async def adoc_get_all_by_yearlte(year):
+    content = {"msg": f"Unknown error"}
+    try:
+        all_ = await ADOC_M.objects.filter(
+            (ADOC_M.year_int > 0) & (ADOC_M.year_int <= year)
+        ).all()
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {AUTHOR_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
+async def adoc_get_all_by_year_between(year1, year2):
+    content = {"msg": f"Unknown error"}
+    try:
+        all_ = await ADOC_M.objects.filter(
+            (ADOC_M.year_int >= year1) & (ADOC_M.year_int <= year2)
+        ).all()
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {AUTHOR_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
 
 # async def files_get_by_root_folder(root_folder: str):
 #     content = {"msg": f"Unknown error"}
