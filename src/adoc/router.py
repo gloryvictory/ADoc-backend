@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile  # , Depends, HTTPException
 
 from src.adoc.services import adoc_get_all_count, adoc_upload_file, adoc_get_all, adoc_get_all_by_author, \
     adoc_get_all_by_report, adoc_get_all_by_year, adoc_get_all_by_yeargte, adoc_get_all_by_yearlte, \
-    adoc_get_all_by_year_between
+    adoc_get_all_by_year_between, adoc_get_all_years
 
 router_adoc = APIRouter(
     # prefix="/adoc",
@@ -99,6 +99,16 @@ async def get_all_by_year_lte(year: int):
 async def get_all_by_year_between(year1: int, year2: int):
     content = await adoc_get_all_by_year_between(year1, year2)
     return content
+
+@router_adoc.get(path='/year',
+                 status_code=200,
+                 name='Получить все уникальные года',
+                 tags=['Документы'],
+                 description='Получает  все уникальные года')
+async def get_all_by_years():
+    content = await adoc_get_all_years()
+    return content
+
 
 # response_model = List[FILES_S],
 # @router_files.get(path="/root/{root_folder}",

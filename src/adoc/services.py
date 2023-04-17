@@ -454,6 +454,33 @@ async def adoc_get_all_by_year_between(year1, year2):
         # log.info(str_err)
     return content
 
+
+async def adoc_get_all_years():
+    content = {"msg": f"Unknown error"}
+    try:
+        years = []
+        years_uniq = []
+        all_ = await ADOC_M.objects.all()
+        for year in all_:
+            if year.year_int > 0 :
+                years.append(year.year_int)
+        years_uniq = sorted(set(years))
+        print(years_uniq)
+        all_count = len(years_uniq)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": years_uniq
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {AUTHOR_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
 # async def files_get_by_root_folder(root_folder: str):
 #     content = {"msg": f"Unknown error"}
 #     # log = set_logger(settings.WELL_FILE_LOG)
