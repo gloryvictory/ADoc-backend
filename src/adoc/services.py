@@ -332,6 +332,23 @@ async def adoc_get_all():
         # log.info(str_err)
     return content
 
+async def adoc_get_all_with_limit_offset(limit=1, offset=1):
+    content = {"msg": f"Unknown error"}
+    try:
+        all_ = await ADOC_M.objects.offset(offset).limit(limit).all()
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {ADOC_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(st
+
 
 async def adoc_get_all_by_author(author):
     content = {"msg": f"Unknown error"}

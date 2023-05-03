@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile  # , Depends, HTTPException
 
 from src.adoc.services import adoc_get_all_count, adoc_upload_file, adoc_get_all, adoc_get_all_by_author, \
     adoc_get_all_by_report, adoc_get_all_by_year, adoc_get_all_by_yeargte, adoc_get_all_by_yearlte, \
-    adoc_get_all_by_year_between, adoc_get_all_years
+    adoc_get_all_by_year_between, adoc_get_all_years, adoc_get_all_with_limit_offset
 
 router_adoc = APIRouter(
     # prefix="/adoc",
@@ -38,6 +38,15 @@ async def get_count():
                  description='Получает Документы')
 async def get_all():
     content = await adoc_get_all()
+    return content
+
+@router_adoc.get(path='/{limit}/{offset}',
+                 status_code=200,
+                 name='Получить Документы с указанием количества',
+                 tags=['Документы'],
+                 description='Получает Документы с указанием количества')
+async def get_all(limit:int, offset:int):
+    content = await adoc_get_all_with_limit_offset(limit, offset)
     return content
 
 
