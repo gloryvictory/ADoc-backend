@@ -115,23 +115,23 @@ async def adoc_excel_file_read(file_in: str):
                 folder_short = str_get_folder(folder_root)
                 folder_name = folder_short
             if value[4]:
-                rgf = str(value[4])
+                rgf = str_tgf_format(str(value[4]))
             if value[5]:
-                tgf_hmao = str(value[5])
+                tgf_hmao = str_tgf_format(str(value[5]))
             if value[6]:
-                tgf_ynao = str(value[6])
+                tgf_ynao = str_tgf_format(str(value[6]))
             if value[7]:
-                tgf_kras = str(value[7])
+                tgf_kras = str_tgf_format(str(value[7]))
             if value[8]:
-                tgf_ekat = str(value[8])
+                tgf_ekat = str_tgf_format(str(value[8]))
             if value[9]:
-                tgf_omsk = str(value[9])
+                tgf_omsk = str_tgf_format(str(value[9]))
             if value[10]:
-                tgf_novo = str(value[10])
+                tgf_novo = str_tgf_format(str(value[10]))
             if value[11]:
-                tgf_more = str(value[11])
+                tgf_more = str_tgf_format(str(value[11]))
             if value[12]:
-                tgf_tmn = str(value[12])
+                tgf_tmn = str_tgf_format(str(value[12]))
 
             if len(tgf_tmn):
                 tgf = 'ТюмТГФ'
@@ -224,6 +224,12 @@ async def adoc_excel_file_read(file_in: str):
 
     # print(worksheet.max_column)
     # print(worksheet.max_row)
+
+def str_tgf_format(str_in: str):
+    if len(str_in) > 1 :
+        return str_in
+    else:
+        return ''
 
 
 def str_get_full_path_with_format(str_in: str):
