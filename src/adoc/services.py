@@ -27,6 +27,30 @@ async def adoc_get_all_count():
     return content
 
 
+async def adoc_get_by_id(id_str: str):
+    content = {"msg": f"Unknown error"}
+    try:
+        if id_str.isnumeric() :
+            id_int =  int(id_str)
+        else:
+            id_int = 0
+        all_ = await ADOC_M.objects.all(ADOC_M.id == id_int)
+        all_count = len(all_)
+        content = {
+            "msg": "Success",
+            "count": all_count,
+            "data": all_
+        }
+        return content
+    except Exception as e:
+        str_err = "Exception occurred " + str(e)
+        content = {"msg": f"reload fail. can't read count from table {ADOC_M.Meta.tablename}", "err": str(e)}
+        print(str_err)
+        # log.info(str_err)
+    return content
+
+
+
 async def adoc_upload_file(file: UploadFile = File(...)):
     content = {"msg": f"Unknown error"}
     try:
